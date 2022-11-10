@@ -17,17 +17,17 @@ Here I will go through an example of how you can use this tool.
 
 2. Get the user ID of the seed scholar that you want to base the research on. The user ID is in their Google Scholar profile, right after "user=" and before "&". Here we use the example of Julius Smith, the OG professor doing audio signal processing work at Stanford. 
 
-<img src="/assets/img/user_id.PNG" width="100%">
+<img src="/assets/img/user_id.png" width="100%">
 
 3. Open your terminal, change directory to where your repository lives, and run the command ```python3 analysis.py```. Your command line will prompt you to input the user ID. Copy over the user ID from previous step.
 
-<img src="/assets/img/command_line_input.PNG" width="100%">
+<img src="/assets/img/command_line_input.png" width="100%">
 
 4. If the script runs successfully, you will see the seed scholar's coauthors' user IDs being printed in the command line. When it finishes, it will print ```File successfully saved for [Scholar Name] at the path [path/to/your/repository]!```
 
 5. Now in your current working directory, there will be an Excel file with the seed scholar's name as the file name.
 
-<img src="/assets/img/output_example.PNG" width="100%">
+<img src="/assets/img/output_example.png" width="100%">
 
 ### Next Steps
 Currently this project just completed its first development stage, meaning that there are still processes that could be enhanced. Below are some current open items, you are welcome to open an issue and make suggestions if I missed out on anything.
