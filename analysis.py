@@ -6,7 +6,12 @@ import os
 #USER_ID = 'qc6CJjYAAAAJ'
 
 def write_to_excel(author,coauthors_instance_dict):
-    writer = pd.ExcelWriter(f'{author.name}.xlsx')
+    MYDIR = ("assets/scraped_files")
+    CHECK_FOLDER = os.path.isdir(MYDIR)
+    # If folder doesn't exist, then create it.
+    if not CHECK_FOLDER:
+        os.makedirs(MYDIR)
+    writer = pd.ExcelWriter(f'./assets/scraped_files/{author.name}.xlsx')
     author_info = pd.DataFrame.from_dict(ups.getting_author_info(author.user_id))
     author_info.to_excel(writer, sheet_name='Author Info', index = False)
     author.coauthors.to_excel(writer, sheet_name = "Coauthor Info", index = False)
@@ -30,7 +35,7 @@ def main():
     author = ac.Author(USER_ID)
     coauthors_instance_dict = author.create_coauthors_instance_dict()
     write_to_excel(author, coauthors_instance_dict)
-    print(f"File successfully saved for {author.name} at the path {os.getcwd()}!")
+    print(f"File successfully saved for {author.name} at the path {os.getcwd()}/assets/scraped_files!")
     pass
 
 if __name__ == "__main__":

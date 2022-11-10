@@ -126,9 +126,18 @@ def getting_authors_articles(user_id):
     soup = bs(html, 'lxml')
     table = soup.find("tbody", id="gsc_a_b")
     rows = table.find_all("tr", {"class": 'gsc_a_tr'})
+
     for row in rows:
-      
+
       a_tag = row.find("a", {"class": "gsc_a_at"})
+      if a_tag == None:
+        all_titles += ["No Title Name Available"]
+        all_urls += ["No Link Available"]
+        all_authors += ["No Author Available"]
+        all_years += ["No Year Available"]
+        all_cite_times += ["No Citation Available"]
+        all_journals += ["No Journal Available"]
+        continue
       ## extract paper titles
       all_titles += [a_tag.string]
       
