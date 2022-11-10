@@ -13,9 +13,9 @@ def write_to_excel(author,coauthors_instance_dict):
     author.articles.to_excel(writer, sheet_name = "Author's Articles", index = False)
     second_conn_coauthors = author.merge_coauthors_of_coauthors(coauthors_instance_dict )
     second_conn_coauthors.to_excel(writer, sheet_name = "Second Connection Co-Authors Info", index = False)
-    second_conn_coauthors.groupby(by=["co_author_affiliated_institutions"]).count().sort_values(by='user_id', ascending=False).to_excel(writer, 
-                                                                                                                                        sheet_name="Second Connection Co-Authors Institution Count",
-                                                                                                                                        index = True)
+    scc_group = second_conn_coauthors.groupby(by=["co_author_affiliated_institutions"]).count().sort_values(by='user_id', ascending=False)[[ "user_id"]]
+    scc_group.columns = [ "count"]
+    scc_group.to_excel(writer, sheet_name="Second Connection Co-Authors Institution Count", index = True)
     second_conn_articles = author.merge_articles_of_coauthors(coauthors_instance_dict)
     second_conn_articles.to_excel(writer, sheet_name = "Second Connection Co-Authors Articles", index=False)
     

@@ -1,34 +1,37 @@
-# web-scraping-academic
+## Google Scholar Webscraper for Scholar & Institution Relationship Analysis
 
-This GitHub Repository hosts my ongoing project that scrapes a Google Scholar user profile and does analysis on the article names, scholar info, co-authors info. The web scraping part is written with ```BeautifulSoup```. The project aims to help me with grad school research and hones my coding skills in general.
+This webscraper allows you to explore the articles and affiliated institutions for up to second connection of coauthors using a seed scholar. By inputting the seed scholar's Google Scholar user ID, it will write an Excel file with the scholar's basic info, available articles, coauthor information, as well as a concatenated list of their coauthors' coauthors and a concatenated list of all the articles by their coauthors and second connection coauthors. Webscraping is done with BeautifulSoup.
 
-Current progress: completed the function to scrape author info, co-author info, and all the articles written by the author.
+You can use this tool to do graduate school research or industry job research if you have someone whose work you are particularly interested in. Simply get their Google Scholar user id and see where their coauthors and second connection coauthors are working at. I was able to narrow down my target schools this way and find professor doing similar research in a particular school.
 
-Last updated: 10/25/22
+Here I will go through an example of how you can use this tool.
 
-User Profile Scraping:
-#### Reference: 
-Medium Article I found about scraping google scholar [here](https://proxiesapi-com.medium.com/scraping-google-scholar-with-python-and-beautifulsoup-850cbdfedbcf)
+1. Clone this repository and install all the dependency libraries below:
+    - pandas
+    - os
+    - bs4
+    - requests
+    - lxml
+    - re
+    - openpyxl
 
-Stackoverflow starter code [here](https://stackoverflow.com/questions/67146312/web-scraping-google-scholar-author-profiles)
+2. Get the user ID of the seed scholar that you want to base the research on. The user ID is in their Google Scholar profile, right after "user=" and before "&". Here we use the example of Julius Smith, the OG professor doing audio signal processing work at Stanford. 
 
-Reference Medium Article from SerpeAPI [here](https://python.plainenglish.io/scrape-google-scholar-with-python-fc6898419305#daf8)
+<img src="/assets/img/user_id.PNG" width="100%">
 
-In general, use **selenium** if you need to interact with the webpage
+3. Open your terminal, change directory to where your repository lives, and run the command ```python3 analysis.py```. Your command line will prompt you to input the user ID. Copy over the user ID from previous step.
 
-You can also use scholarly package (mine didn't work because I keep getting fake user agent error)
+<img src="/assets/img/command_line_input.PNG" width="100%">
 
-Pagination solution: using 'cstart' and 'pagesize' to work with Show More option
+4. If the script runs successfully, you will see the seed scholar's coauthors' user IDs being printed in the command line. When it finishes, it will print ```File successfully saved for [Scholar Name] at the path [path/to/your/repository]!```
 
-Down the line: incoroporating object oriented programming - author could be a class
+5. Now in your current working directory, there will be an Excel file with the seed scholar's name as the file name.
 
-To get the text of current element and not its children: use contents
-- example : <div> yes <a>no</a></div>
-    - soup.find("div").contents[0]
+<img src="/assets/img/output_example.PNG" width="100%">
 
+### Next Steps
+Currently this project just completed its first development stage, meaning that there are still processes that could be enhanced. Below are some current open items, you are welcome to open an issue and make suggestions if I missed out on anything.
 
-### Hurdle for Getting CoAuthors
-1. Write getting co_authors function
-    - currently not able to find the co-authors ul tag .... bc the testing profile did not have co-authors section....
-2. was only able to scrape the top 20 co-authors before we have to click "View All" and maybe use selenium
-    - found alternative way by scraping a new view option offered by google scholar. Reference [here](https://datascience-enthusiast.com/R/google_scholar_R.html)
+1. The institution and position scraping is not perfect. The current version assumes that affiliation is always listed as "Position, Institution", which is not how all the users input their affiliation. This could get quite complicated because not all users input both their position and institution.
+2. In some discipline such as chemistry, the article names have special characters that are hard to scrape and show up as blank when scraped.
+3. Some CITED BY values are crossed out, which currently shows up as No Citation Available in the Excel file.
